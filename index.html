@@ -1,0 +1,1491 @@
+<!--<!DOCTYPE html>--><html lang="en"><head>
+    <title>Truyền Thuyết Poke</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:title" content="Truyền Thuyết Poke">
+    <meta property="og:description" content="Best 2D graphic of pocket game">
+    <meta property="og:url" content="https://truyenthuyetpoke.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://PetQuest/images/app_icon.png">
+    <style type="text/css">
+      /* 容器：使用 flex 布局更容易控制位置 */
+      .lang-dropdown {
+        position: relative;
+        display: inline-block;
+        vertical-align: middle;
+        box-sizing: border-box;
+        flex-shrink: 0; /* 强制不压缩 */
+        margin-left: 10px; /* 给它一点 左间距，防止贴着前面的图标 */
+      }
+
+      /* 按钮：自适应宽度，防止文字挤压 */
+      .lang-dropbtn {
+        background: linear-gradient(135deg, #ee76ee 0%, #c457be 70%);
+        color: white;
+        padding: 1px 1px;
+        font-size: 10px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        white-space: nowrap;
+        /* 强制文字不换行 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        /* 图标和文字的间距 */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        max-width: 70px;
+        /* 限制最大宽度，防止太长 */
+        overflow: hidden;
+        /* 超出部分隐藏 */
+        text-overflow: ellipsis;
+        /* 超出显示省略号 */
+      }
+
+      .lang-dropbtn:active {
+        transform: scale(0.95);
+      }
+
+      /* 下拉菜单：核心优化点 */
+      .lang-dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        left: auto;
+        /* 靠右对齐，防止超出右侧屏幕 */
+        background-color: #fff;
+        min-width: 150px;
+        /* 给一个合理的最小宽度 */
+        width: max-content;
+        /* 根据内容自动调整宽度 */
+        max-width: 90vw;
+        /* 关键：最大宽度不超过屏幕宽度的 90% */
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        z-index: 10001;
+        border-radius: 12px;
+        margin-top: 8px;
+        max-height: 400px;
+        overflow-y: auto;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      /* 选项样式 */
+      .lang-dropdown-content a {
+        color: #333;
+        padding: 12px 20px;
+        text-decoration: none;
+        display: block;
+        font-size: 15px;
+        border-bottom: 1px solid #f0f0f0;
+        transition: background 0.2s;
+        text-align: left;
+      }
+
+      .lang-dropdown-content a:last-child {
+        border-bottom: none;
+      }
+
+      .lang-dropdown-content a:hover {
+        background-color: #f9f8fa;
+        color: #ea66d4;
+      }
+
+      /* 移动端小屏幕适配 */
+      @media (max-width: 480px) {
+        .lang-dropbtn {
+          padding: 6px 10px;
+          font-size: 12px;
+        }
+
+        /* 小屏优先“跟随按钮”定位，避免下拉框固定到屏幕底部 */
+        .lang-dropdown-content {
+          position: absolute;
+          top: calc(100% + 8px);
+          right: 0;
+          left: auto;
+          bottom: auto;
+          max-width: calc(
+            100vw - 20px - env(safe-area-inset-left) -
+              env(safe-area-inset-right)
+          );
+        }
+
+        /* 兜底：如果你希望在特别小屏时向上弹出，可给 .lang-dropdown 加 .drop-up */
+        .lang-dropdown.drop-up .lang-dropdown-content {
+          top: auto;
+          bottom: calc(100% + 8px);
+        }
+      }
+
+      /* 显示状态 */
+      .show-lang {
+        display: block;
+        animation: fadeInDown 0.2s ease-out;
+      }
+
+      .mobile-header-actions {
+        flex-wrap: nowrap;
+        gap: 8px;
+      }
+
+      .mobile-header-actions > a,
+      .mobile-header-actions > .lang-dropdown {
+        flex: 0 0 auto;
+      }
+
+      .mobile-header-actions > a img {
+        display: block;
+        max-width: 28px;
+        height: auto;
+      }
+
+      .mb_giftcode img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+
+      @media (max-width: 360px) {
+        .mobile-header-actions > a img {
+          max-width: 24px;
+        }
+      }
+
+      .mobile-header-actions .lang-dropdown {
+        margin-left: 0;
+      }
+
+      .mobile-header-actions .lang-dropbtn {
+        max-width: none;
+        font-size: 12px;
+        padding: 6px 10px;
+        gap: 6px;
+      }
+
+      /* PC / 宽屏：把语言切换放到 header 右侧，并确保可点击/不被遮挡 */
+      .header-desktop-actions {
+        align-items: center;
+      }
+
+      .header-desktop-actions .list-social {
+        margin-left: auto;
+        align-items: center;
+      }
+
+      .header-desktop-actions .lang-dropdown {
+        margin-left: 12px;
+      }
+
+      @media (max-width: 360px) {
+        .mobile-header-actions .lang-dropbtn {
+          font-size: 11px;
+          padding: 5px 8px;
+        }
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        src: url(./normal.woff2);
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+          U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+          U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        src: url(./normal.woff2);
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        src: url(./normal.woff2);
+        unicode-range: U+0370-03FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        src: url(./normal.woff2);
+        unicode-range: U+1F00-1FFF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        src: url(./normal.woff2);
+        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        src: url(./normal.woff2);
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+          U+A640-A69F, U+FE2E-FE2F;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        src: url(./normal.woff2);
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 300;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+1F00-1FFF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 300;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+          U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+          U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 300;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 300;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 300;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 300;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+          U+A640-A69F, U+FE2E-FE2F;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 300;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0370-03FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 400;
+        src: url(./normal.woff2);
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+          U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+          U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 400;
+        src: url(./normal.woff2);
+        unicode-range: U+0370-03FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 400;
+        src: url(./normal.woff2);
+        unicode-range: U+1F00-1FFF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 400;
+        src: url(./normal.woff2);
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+          U+A640-A69F, U+FE2E-FE2F;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 400;
+        src: url(./normal.woff2);
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 400;
+        src: url(./normal.woff2);
+        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 400;
+        src: url(./normal.woff2);
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 400;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0370-03FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 400;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+          U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+          U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 400;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+          U+A640-A69F, U+FE2E-FE2F;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 400;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+1F00-1FFF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 400;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 400;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: italic;
+        font-weight: 400;
+        src: url(/Files_1/italic.woff2);
+        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        src: url(./normal.woff2);
+        unicode-range: U+1F00-1FFF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        src: url(./normal.woff2);
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+          U+A640-A69F, U+FE2E-FE2F;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        src: url(./normal.woff2);
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        src: url(./normal.woff2);
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        src: url(./normal.woff2);
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+          U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+          U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        src: url(./normal.woff2);
+        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 500;
+        src: url(./normal.woff2);
+        unicode-range: U+0370-03FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        src: url(./normal.woff2);
+        unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F,
+          U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F,
+          U+A720-A7FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        src: url(./normal.woff2);
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169,
+          U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309,
+          U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        src: url(./normal.woff2);
+        unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        src: url(./normal.woff2);
+        unicode-range: U+1F00-1FFF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        src: url(./normal.woff2);
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF,
+          U+A640-A69F, U+FE2E-FE2F;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        src: url(./normal.woff2);
+        unicode-range: U+0370-03FF;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 700;
+        src: url(./normal.woff2);
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+          U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC,
+          U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        font-display: swap;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./libs/uikit/css/uikit.min.css">
+    <link rel="stylesheet" type="text/css" href="./libs/slick-1.8.1/slick/slick.css">
+    <!-- <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png/index.html">
+    <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png/index.html">
+    <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png/index.html">
+    <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png/index.html">
+    <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png/index.html">
+    <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png/index.html">
+    <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png/index.html">
+    <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png/index.html">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png/index.html">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png/index.html">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png/index.html">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png/index.html">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png/index.html"> -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+    <!-- Optimized WebView Detection Styles -->
+    <style>
+      .webview-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 9999;
+        display: none;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .webview-modal {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        padding: 30px;
+        max-width: 450px;
+        margin: 50px auto;
+        color: white;
+        position: relative;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .warning-icon {
+        text-align: center;
+        font-size: 48px;
+        margin-bottom: 15px;
+      }
+
+      .webview-modal h2 {
+        text-align: center;
+        margin: 0 0 20px 0;
+        font-size: 24px;
+      }
+
+      .main-message {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 16px;
+      }
+
+      .instruction-box {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        backdrop-filter: blur(10px);
+      }
+
+      .instruction-box h3 {
+        margin: 0 0 15px 0;
+        font-size: 18px;
+      }
+
+      .instruction-box ol {
+        margin: 0;
+        padding-left: 20px;
+      }
+
+      .instruction-box li {
+        margin: 10px 0;
+        line-height: 1.4;
+      }
+
+      .copy-section {
+        text-align: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+      }
+
+      .copy-container {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .link-input {
+        flex: 1;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        font-size: 14px;
+      }
+
+      .copy-btn {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        white-space: nowrap;
+      }
+
+      .copy-btn:hover {
+        background: #218838;
+      }
+
+      #footer a {
+        color: white;
+        background-color: purple;
+        padding: 5px 10px;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+
+      #footer a:hover {
+        background-color: darkpurple;
+      }
+
+      @media (max-width: 768px) {
+        .webview-modal {
+          margin: 20px auto;
+          padding: 25px;
+        }
+
+        .copy-container {
+          flex-direction: column;
+        }
+
+        .copy-btn {
+          width: 100%;
+        }
+      }
+    </style>
+ <!-- Meta Pixel Code -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+(function() {
+    var url = window.location.href;
+    var __pixelPid = ''; // 初始化变量
+
+    // 根据 URL 判断对应的 Pixel ID
+    if (url.indexOf('OTIyLTQ0') !== -1) {
+        __pixelPid = '863959056534794'; // fyn
+    } else if (url.indexOf('OTIyLTQ2') !== -1) {
+        __pixelPid = '1643768773600083'; // fyn2
+    } else if (url.indexOf('OTIyLTQ5') !== -1) {
+        __pixelPid = '1997567540791701'; // tyn
+    }
+
+    // 只有当匹配到 ID 时才初始化 FB Pixel
+    if (__pixelPid !== '') {
+        fbq('init', __pixelPid);
+        fbq('track', 'PageView');
+        console.log('Pixel Sent for ID: ' + __pixelPid);
+    } else {
+        console.warn('No matching Pixel ID found for this URL.');
+    }
+})();
+</script>
+<!-- End Meta Pixel Code -->
+  </head>
+
+  <body>
+    <!-- Optimized WebView Detection Overlay -->
+    <div id="webview-overlay" class="webview-overlay">
+      <div class="webview-modal">
+        <button class="close-btn" onclick="closeWebViewModal()">✕</button>
+
+        <div class="warning-icon">⚠️</div>
+        <h2>Cannot Download Here</h2>
+
+        <p class="main-message">
+          <strong>Open this page in your browser to download:</strong>
+        </p>
+
+        <div id="platform-instruction" class="instruction-box">
+          <h3 id="platform-title">📱 How to open in browser:</h3>
+          <ol id="instruction-steps">
+            <li>Tap <strong>menu (...)</strong> at top corner</li>
+            <li>Select <strong>"Open in Browser"</strong></li>
+            <li>Download the APK normally</li>
+          </ol>
+        </div>
+
+        <div class="copy-section">
+          <p>Or copy this link:</p>
+          <div class="copy-container">
+            <input type="text" id="link-input" class="link-input" readonly="">
+            <button class="copy-btn" onclick="copyLink()">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrapper">
+      <header id="header">
+        <div class="header-main">
+          <div class="uk-container">
+            <div class="uk-flex uk-flex-top header-desktop-actions">
+              <!-- <a onclick="fun();" class="hf1 gift_btn">
+                <img id="giftcode-btn-w" src="/Files_1/images/btn_giftcode_en.png" />
+              </a> -->
+              <!-- <a href="#" class="logo"> 
+                <img src="/Files_1/images/logo.png" />
+              </a> -->
+              <ul class="list-social uk-flex uk-flex-between uk-flex-middle">
+                <li>
+                  <div class="lang-dropdown">
+                    <button class="lang-dropbtn" id="currentLangDisplay-desktop">
+                      Tiếng Việt
+                    </button>
+                    <!-- <div class="lang-dropdown-content" id="langOptions-desktop">
+                      <a href="javascript:void(0);" onclick="changeLanguage('en')">English</a>
+                      <a href="javascript:void(0);" onclick="changeLanguage('th')">บัญชี</a>
+                      <a href="javascript:void(0);" onclick="changeLanguage('ko')">한국어</a>
+                      <a href="javascript:void(0);" onclick="changeLanguage('vi')">Tiếng Việt</a>
+                      <a href="javascript:void(0);" onclick="changeLanguage('pt')">Português</a>
+                    </div> -->
+                  </div>
+                </li>
+                <li>
+                  <a href="#" class="hf1">
+                    <img src="./images/btn_account.png">
+                  </a>
+                </li>
+                <li style="margin: 0 18px">
+                  <img src="./images/line.png">
+                </li>
+                <li>
+                  <a href="https://www.facebook.com/profile.php?id=61587478322140" class="hf1">
+                    <img src="./images/icon_facebook.png">
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.facebook.com/groups/25877838891887453" class="hf1">
+                    <img src="./images/icon_group.png">
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="hf1">
+                    <img src="./images/icon_discord.png">
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="header-main-mobile" hidden="">
+          <div class="uk-container">
+            <div class="uk-flex uk-flex-center uk-flex-middle mobile-header-actions">
+              <a href="javascript:void(0);" class="mb-account">
+                <img src="./images/btn_account_m.png">
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=61587478322140" class="mb-fanpage">
+                <img src="./images/m_fanpage.png">
+              </a>
+              <a href="#" class="mb-group">
+                <img src="./images/m_discord.png">
+              </a>
+              <!-- <a id="langChangeBtn" onclick="AlertTips('这个修改为语言切换按钮');" class="mb-discord">
+语言切换按钮
+        </a> -->
+              <div class="lang-dropdown">
+                <button class="lang-dropbtn" id="currentLangDisplay">
+                  Language
+                </button>
+                <div class="lang-dropdown-content" id="langOptions">
+                  <!-- <a
+        href="javascript:void(0);"
+        onclick="changeLanguage('zh-CN')"
+        >简体中文</a
+      > -->
+                  <!-- <a href="javascript:void(0);" onclick="changeLanguage('zh-HK')">繁中</a> -->
+                  <a href="javascript:void(0);" onclick="changeLanguage('en')">English</a>
+                  <a href="javascript:void(0);" onclick="changeLanguage('th')">บัญชี</a>
+                  <a href="javascript:void(0);" onclick="changeLanguage('ko')">한국어</a>
+                  <a href="javascript:void(0);" onclick="changeLanguage('vi')">Tiếng Việt</a>
+                  <a href="javascript:void(0);" onclick="changeLanguage('pt')">Português</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <a href="#" class="logo-mb">
+            <!-- <img src="/Files_1/images/logo-mb.png" /> -->
+          </a>
+        </div>
+      </header>
+      <main id="site-main">
+        <section id="section1-mb" hidden="">
+          <div class="uk-container">
+            <img src="./images/char-mb.png" class="char-mb">
+            <a onclick="fun();" class="hf1 mb_giftcode">
+              <img id="giftcode-btn" src="./images/giftcode_mb.png">
+            </a>
+            <div id="" class="action-group fix-grid-padding">
+              <div class="uk-flex uk-flex-center">
+                <div class="action-group-left">
+                  <div class="download-list uk-flex uk-flex-between uk-flex-middle">
+                    <div class="download-list-icon">
+                      <img src="./images/app_icon_m.png">
+                    </div>
+                    <div class="download-list-center">
+                      <div class="dl-ios">
+                        <!-- <a href="/Files_1/ios/index.htm" class="hf1"> -->
+                        <a href="?ct=shouyou&ac=iosDownload&gid=923&member=30" class="hf1">
+                          <img id="ios-download-btn" src="./images/download_ios_en.png">
+                        </a>
+                      </div>
+                      <div class="dl-android">
+                        <!-- <a
+  href="https://file.yNoF2mPJFMS2.com/channel/2/kdcs_hw_20251218_1.apk"
+  class="hf1"
+  onclick="handleDownloadClick(event) "
+> -->
+                        <a class="hf1" onclick="down('https://file.yNoF2mPJFMS2.com/channel/30/PetQuest_hw_20260211.apk')">
+                          <img id="google-download-btn" src="./images/download_google_en.png">
+                        </a>
+                      </div>
+                    </div>
+                    <div class="dl-apk">
+                      <a onclick="down('https://file.yNoF2mPJFMS2.com/channel/30/PetQuest_hw_20260211.apk')" class="hf1">
+                        <img id="download-apk-btn" src="./images/download_apk_en.png">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+                <style>
+          /* 限制轮播图容器高度 */
+.main-slider {
+  max-height: 1200px; /* 根据你的设计调整这个值 */
+  overflow: hidden;
+}
+
+/* 确保图片高度不超过容器 */
+.main-slider .slick-slide {
+  height: auto;
+}
+
+.main-slider .main-slider-item {
+  line-height: 0; /* 移除行高导致的额外空间 */
+}
+
+.main-slider img {
+  width: 100%;
+  height: auto;
+  max-height: 1200px; /* 与容器高度一致 */
+  object-fit: contain; /* 保持图片比例 */
+}
+        </style>
+        <section id="section1" uk-height-viewportss="">
+          <div class="uk-container">
+            <div class="section1-inner" style="position: relative">
+              <div class="section1-top">
+                <div class="main-slider">
+                  <div class="main-slider-item">
+                    <img src="./images/slider/1.png">
+                  </div>
+                  <div class="main-slider-item">
+                    <img src="./images/slider/2.png">
+                  </div>
+                  <div class="main-slider-item">
+                    <img src="./images/slider/3.png">
+                  </div>
+                  <div class="main-slider-item">
+                    <img src="./images/slider/4.png">
+                  </div>
+                  <div class="main-slider-item">
+                    <img src="./images/slider/5.png">
+                  </div>
+                  <div class="main-slider-item">
+                    <img src="./images/slider/6.png">
+                  </div>
+                  <div class="main-slider-item">
+                    <img src="./images/slider/7.png">
+                  </div>
+                </div>
+              </div>
+              <!-- End  top -->
+              <div id="" class="action-group fix-grid-padding">
+                <div class="uk-flex uk-flex-center">
+                  <div class="action-group-left">
+                    <div class="download-list uk-flex uk-flex-between uk-flex-middle">
+                      <div class="download-list-icon">
+                        <img src="./images/app_icon.png">
+                      </div>
+                      <div class="download-list-center">
+                        <div class="dl-ios">
+                          <a href="https://testflight.apple.com/join/euY8HUGV" class="hf1">
+                            <img style="height: 71px;" id="ios-download-btn-w" src="./images/download_ios_en.png">
+                          </a>
+                        </div>
+                        <div class="dl-android">
+                          <a href="https://www.mediafire.com/file/av4ypw1yfdufydi/Truy%E1%BB%81n+Thuy%E1%BA%BFt+Poke.APK" class="hf1">
+                            <img style="height: 71px;" id="google-download-btn-w" src="./images/download_google_en.png">
+                          </a>
+                        </div>
+                      </div>
+                      <div class="dl-apk">
+                      <a href="https://www.mediafire.com/file/av4ypw1yfdufydi/Truy%E1%BB%81n+Thuy%E1%BA%BFt+Poke.APK" class="hf1">
+                        <img id="download-apk-btn-w" src="./images/download_apk_en.png">
+                      </a>
+                    </div>
+                    <div>
+                      <img onclick="fun();" id="giftcode-btn-w" src="./images/giftcode_mb_en.png">
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <img src="./images/char.png" class="char">
+            </div>
+          </div>
+        </section>
+      </main>
+      <!-- 
+        <footer id="footer">
+<div class="uk-text-center">
+    <p><a href="Policy.html">Privacy Policy</a>
+        <a href="Terms-And-Conditions.html">Terms-And-Conditions</a>
+    </p>
+</div>
+        </footer> -->
+    </div>
+
+    <!--libs js-->
+    <script type="text/javascript" src="./js/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="./libs/uikit/js/uikit.min.js"></script>
+    <script type="text/javascript" src="./libs/slick-1.8.1/slick/slick.min.js"></script>
+    <script type="text/javascript" src="./libs/uikit/js/uikit-icons.min.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+
+    <!-- Optimized WebView Detection Script -->
+    <script type="text/javascript">
+      // Optimized WebView Detection
+      function detectWebView() {
+        const ua = navigator.userAgent.toLowerCase();
+        return (
+          ua.includes("fban") ||
+          ua.includes("fbav") ||
+          ua.includes("fbios") ||
+          ua.includes("instagram") ||
+          ua.includes("tiktok") ||
+          ua.includes("bytedance") ||
+          ua.includes("twitter") ||
+          ua.includes("kakaotalk") ||
+          ua.includes("micromessenger") ||
+          ua.includes("snapchat") ||
+          ua.includes("linkedin") ||
+          ua.includes("musical_ly")
+        );
+      }
+
+      // Show optimized modal
+// 改造函数：接收动态链接参数，不再使用任何固定链接
+function showWebViewModal(url) {
+  // 校验传入的链接是否有效（可选，增强健壮性）
+  if (!url) {
+    alert('下载链接无效，请重试！');
+    return;
+  }
+  
+  document.getElementById("webview-overlay").style.display = "block";
+  document.getElementById("link-input").value = url; // 仅使用传入的动态链接
+  document.body.style.overflow = "hidden";
+  updatePlatformInstructions();
+  trackWebViewDetection();
+}
+
+// 适配onclick调用的down函数，传入模板变量https://file.yNoF2mPJFMS2.com/channel/30/PetQuest_hw_20260211.apk
+function down(url) {
+  showWebViewModal(url);
+}
+
+      // Dynamic platform instructions
+      function updatePlatformInstructions() {
+        const ua = navigator.userAgent.toLowerCase();
+        const title = document.getElementById("platform-title");
+        const steps = document.getElementById("instruction-steps");
+
+        if (ua.includes("fban") || ua.includes("fbav")) {
+          title.innerHTML = "📘 On Facebook:";
+          steps.innerHTML = `
+        <li>Tap <strong>3 dots (...)</strong> at top right</li>
+        <li>Select <strong>"Open in Browser"</strong></li>
+        <li>Download APK in your browser</li>
+    `;
+        } else if (ua.includes("tiktok") || ua.includes("bytedance")) {
+          title.innerHTML = "🎵 On TikTok:";
+          steps.innerHTML = `
+        <li>Tap <strong>3 lines (≡)</strong> at top</li>
+        <li>Select <strong>"Open in Browser"</strong></li>
+        <li>Download APK normally</li>
+    `;
+        } else if (ua.includes("instagram")) {
+          title.innerHTML = "📷 On Instagram:";
+          steps.innerHTML = `
+        <li>Tap <strong>3 dots (...)</strong> at top right</li>
+        <li>Select <strong>"Open in Browser"</strong></li>
+        <li>Download from browser</li>
+    `;
+        }
+      }
+
+      // Close modal
+      function closeWebViewModal() {
+        document.getElementById("webview-overlay").style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      // Copy link with modern clipboard API
+      function copyLink() {
+        const input = document.getElementById("link-input");
+        const btn = document.querySelector(".copy-btn");
+
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(input.value).then(() => {
+            showCopySuccess(btn);
+          });
+        } else {
+          input.select();
+          document.execCommand("copy");
+          showCopySuccess(btn);
+        }
+      }
+
+      function showCopySuccess(btn) {
+        const originalText = btn.innerHTML;
+        btn.innerHTML = "✅ Copied!";
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+        }, 2000);
+      }
+
+      // Handle download clicks
+      function handleDownloadClick(event) {
+        // if (detectWebView()) {
+        //     event.preventDefault();
+        //     showWebViewModal();
+        //     return false;
+        // }
+        return true;
+      }
+
+      // Analytics tracking
+      function trackWebViewDetection() {
+        window.dataLayer = window.dataLayer || [];
+        dataLayer.push({
+          event: "webview_detected",
+          event_category: "download_blocked",
+          event_label: navigator.userAgent.toLowerCase(),
+        });
+      }
+
+      // Gift code function
+      function fun() {
+        alert(
+          "🎁Vui lòng sử dụng những gift code sau \nTPK2026 TANTHU  \nTRIAN OPENGAME \nCHILLOVE SIEUTANTHU"
+        );
+      }
+      // 弹窗提示
+      function AlertTips(message) {
+        alert(message);
+      }
+   </script>
+    <script>
+      // 1. 定义多语言数据 (礼包码信息)
+       const langData = {
+       "zh-CN": {
+  name: "简体中文",
+  msg: "🎁游戏内邮件可直接领取免费奖励。更多免费周礼包码和节日礼包码，请关注我们的 Discord、Facebook、Zalo、WhatsApp 获取最新信息。",
+    // msg: "🎁 礼包码奖励指南\n使用以下礼包码即可免费获得 VIP 12、660,000 钻石及海量高级材料：\n\n礼包码：GM11  GM22  GM33",
+},
+"zh-HK": {
+  name: "繁體中文",
+//   msg: "🎁 禮包碼獎勵指南\n使用以下禮包碼即可免費獲得 VIP 12、660,000 鑽石及海量高級材料：\n\n禮包碼：GM11  GM22  GM33",
+  msg: "🎁 禮包碼獎勵指南\n使用以下禮包碼即可免費獲得 VIP 12、660,000 鑽石及海量高級材料：\n\n禮包碼：GM11  GM22  GM33",
+},
+en: {
+  name: "English",
+//   msg: "🎁 Gift Code Rewards Guide\nUse the following gift codes to get VIP 12, 660,000 Diamonds, and massive amounts of advanced materials for FREE:\n\nGift Codes: GM11  GM22  GM33",
+   msg: "🎁Free rewards can be claimed directly via in-game mail. For more free weekly codes and holiday codes, please follow our Discord, Facebook, Zalo, WhatsApp for the latest updates.",
+},
+jp: {
+  name: "日本語",
+//   msg: "🎁 ギフトコード特典ガイド\n以下のギフトコードを使用すると、無料で VIP 12、660,000個のダイヤ、および大量の高級素材を獲得できます：\n\nギフトコード：GM11  GM22  GM33",
+  msg: "🎁 ギフトコード特典ガイド\n以下のギフトコードを使用すると、無料で VIP 12、660,000個のダイヤ、および大量の高級素材を獲得できます：\n\nギフトコード：GM11  GM22  GM33",
+},
+ko: {
+  name: "한국어",
+//   msg: "🎁 기프트 코드 보상 가이드\n다음 기프트 코드를 사용하여 VIP 12, 660,000개의 다이아몬드 및 대량의 고급 재료를 무료로 받으세요:\n\n기프트 코드: GM11  GM22  GM33",
+  msg: "🎁🎁무료 보상은 게임 내 우편함에서 바로 받을 수 있습니다. 더 많은 무료 주간 코드와 이벤트 코드를 받으려면 Discord, Facebook, Zalo, WhatsApp을 팔로우하여 최신 정보를 확인하세요.",
+},
+vi: {
+  name: "Tiếng Việt",
+//   msg: "🎁 Hướng dẫn nhận thưởng mã quà tặng\nSử dụng các mã quà tặng sau để nhận miễn phí VIP 12, 660.000 Kim cương và lượng lớn nguyên liệu cao cấp:\n\nMã quà tặng: GM11  GM22  GM33",
+   msg: "🎁Phần thưởng miễn phí có thể nhận trực tiếp qua thư trong game. Để nhận thêm code tuần miễn phí và code sự kiện miễn phí, hãy theo dõi Discord, Facebook, Zalo, WhatsApp của chúng tôi để cập nhật thông tin mới nhất.",
+},
+pt: {
+  name: "Português",
+//   msg: "🎁 Guia de Recompensas de Código de Presente\nUse os seguintes códigos de presente para obter VIP 12, 660.000 Diamantes e quantidades massivas de materiais avançados GRATUITAMENTE:\n\nCódigos: GM11  GM22  GM33",
+    msg: "🎁As recompensas gratuitas podem ser recebidas diretamente pelo correio dentro do jogo. Para mais códigos semanais gratuitos e códigos de eventos, siga nosso Discord, Facebook, Zalo, WhatsApp para obter as últimas novidades.",
+},
+th: {
+  name: "ภาษาไทย",
+//   msg: "🎁 คู่มือรับรางวัลโค้ดของขวัญ\nใช้โค้ดของขวัญต่อไปนี้เพื่อรับ VIP 12, 660,000 เพชร และวัสดุขั้นสูงจำนวนมากฟรี:\n\nโค้ดของขวัญ: GM11  GM22  GM33",
+   msg: "🎁สามารถรับรางวัลฟรีได้โดยตรงผ่านจดหมายในเกม หากต้องการรับโค้ดประจำสัปดาห์ฟรีและโค้ดเทศกาลเพิ่มเติม กรุณาติดตาม Discord, Facebook, Zalo, WhatsApp ของเราเพื่อรับข้อมูลล่าสุด",
+},
+      };
+
+      // 2. 切换语言函数
+      function changeLanguage(lang) {
+        // 保存到本地存储
+        localStorage.setItem("selectedLang", lang);
+
+        // 更新按钮显示文字
+        if (document.getElementById("currentLangDisplay")) {
+          document.getElementById("currentLangDisplay").innerHTML =
+            // langData[lang].name;
+        }
+        if (document.getElementById("currentLangDisplay-desktop")) {
+          document.getElementById("currentLangDisplay-desktop").innerHTML =
+           // langData[lang].name;
+        }
+
+        // 关闭下拉菜单
+        document.getElementById("langOptions").classList.remove("show-lang");
+
+        console.log("Language changed to:", lang);
+
+        //根据语言选择，设置对应的图片图片名字
+        if (lang === "zh-CN") {
+        //   document.getElementById("ios-download-btn").src =
+        //     "/Files_1/images/download_ios_zh-CN.png";
+        //   document.getElementById("google-download-btn").src =
+        //     "/Files_1/images/download_google_zh-CN.png";
+          document.getElementById("giftcode-btn").src =
+            "/Files_1/images/giftcode_mb_zh-CN.png";
+        //   document.getElementById("download-apk-btn").src =
+        //     "/Files_1/images/download_apk_zh-CN.png";
+        //   // 宽屏的资源替换
+        //   document.getElementById("ios-download-btn-w").src =
+        //     "/Files_1/images/download_ios_zh-CN.png";
+        //   document.getElementById("google-download-btn-w").src =
+        //     "/Files_1/images/download_google_zh-CN.png";
+        //   document.getElementById("download-apk-btn-w").src =
+        //     "/Files_1/images/download_apk_zh-CN.png";
+          document.getElementById("giftcode-btn-w").src =
+            "/Files_1/images/giftcode_mb_zh-CN.png";
+        } else if (lang === "en") {
+        //   document.getElementById("ios-download-btn").src =
+        //     "/Files_1/images/download_ios_en.png";
+        //   document.getElementById("google-download-btn").src =
+        //     "/Files_1/images/download_google_en.png";
+          document.getElementById("giftcode-btn").src =
+            "/Files_1/images/giftcode_mb_en.png";
+        //   document.getElementById("download-apk-btn").src =
+        //     "/Files_1/images/download_apk_en.png";
+        //   // 宽屏的资源替换
+        //   document.getElementById("ios-download-btn-w").src =
+        //     "/Files_1/images/download_ios_en.png";
+        //   document.getElementById("google-download-btn-w").src =
+        //     "/Files_1/images/download_google_en.png";
+        //   document.getElementById("download-apk-btn-w").src =
+        //     "/Files_1/images/download_apk_en.png";
+          document.getElementById("giftcode-btn-w").src =
+            "/Files_1/images/giftcode_mb_en.png";
+        } else if (lang === "jp") {
+        //   document.getElementById("ios-download-btn").src =
+        //     "/Files_1/images/download_ios_jp.png";
+        //   document.getElementById("google-download-btn").src =
+        //     "/Files_1/images/download_google_jp.png";
+          document.getElementById("giftcode-btn").src =
+            "/Files_1/images/giftcode_mb_jp.png";
+        //   document.getElementById("download-apk-btn").src =
+        //     "/Files_1/images/download_apk_jp.png";
+        //   // 宽屏的资源替换
+        //   document.getElementById("ios-download-btn-w").src =
+        //     "/Files_1/images/download_ios_jp.png";
+        //   document.getElementById("google-download-btn-w").src =
+        //     "/Files_1/images/download_google_jp.png";
+        //   document.getElementById("download-apk-btn-w").src =
+        //     "/Files_1/images/download_apk_jp.png";
+          document.getElementById("giftcode-btn-w").src =
+            "/Files_1/images/giftcode_mb_jp.png";
+        } else if (lang === "ko") {
+        //   document.getElementById("ios-download-btn").src =
+        //     "/Files_1/images/download_ios_ko.png";
+        //   document.getElementById("google-download-btn").src =
+        //     "/Files_1/images/download_google_ko.png";
+          document.getElementById("giftcode-btn").src =
+            "/Files_1/images/giftcode_mb_ko.png";
+        //   document.getElementById("download-apk-btn").src =
+        //     "/Files_1/images/download_apk_ko.png";
+        //   // 宽屏的资源替换
+        //   document.getElementById("ios-download-btn-w").src =
+        //     "/Files_1/images/download_ios_ko.png";
+        //   document.getElementById("google-download-btn-w").src =
+        //     "/Files_1/images/download_google_ko.png";
+        //   document.getElementById("download-apk-btn-w").src =
+        //     "/Files_1/images/download_apk_ko.png";
+          document.getElementById("giftcode-btn-w").src =
+            "/Files_1/images/giftcode_mb_ko.png";
+        } else if (lang === "vi") {
+        //   document.getElementById("ios-download-btn").src =
+        //     "/Files_1/images/download_ios_vi.png";
+        //   document.getElementById("google-download-btn").src =
+        //     "/Files_1/images/download_google_vi.png";
+          document.getElementById("giftcode-btn").src =
+            "/Files_1/images/giftcode_mb_vi.png";
+        //   document.getElementById("download-apk-btn").src =
+        //     "/Files_1/images/download_apk_vi.png";
+        //   // 宽屏的资源替换
+        //   document.getElementById("ios-download-btn-w").src =
+        //     "/Files_1/images/download_ios_vi.png";
+        //   document.getElementById("google-download-btn-w").src =
+        //     "/Files_1/images/download_google_vi.png";
+        //   document.getElementById("download-apk-btn-w").src =
+        //     "/Files_1/images/download_apk_vi.png";
+          document.getElementById("giftcode-btn-w").src =
+            "/Files_1/images/giftcode_mb_vi.png";
+        } else if (lang === "pt") {
+        //   document.getElementById("ios-download-btn").src =
+        //     "/Files_1/images/download_ios_pt.png";
+        //   document.getElementById("google-download-btn").src =
+        //     "/Files_1/images/download_google_pt.png";
+          document.getElementById("giftcode-btn").src =
+            "/Files_1/images/giftcode_mb_pt.png";
+        //   document.getElementById("download-apk-btn").src =
+        //     "/Files_1/images/download_apk_pt.png";
+        //   // 宽屏的资源替换
+        //   document.getElementById("ios-download-btn-w").src =
+        //     "/Files_1/images/download_ios_pt.png";
+        //   document.getElementById("google-download-btn-w").src =
+        //     "/Files_1/images/download_google_pt.png";
+        //   document.getElementById("download-apk-btn-w").src =
+        //     "/Files_1/images/download_apk_pt.png";
+          document.getElementById("giftcode-btn-w").src =
+            "/Files_1/images/giftcode_mb_pt.png";
+        } else if (lang === "th") {
+        //   document.getElementById("ios-download-btn").src =
+        //     "/Files_1/images/download_ios_th.png";
+        //   document.getElementById("google-download-btn").src =
+        //     "/Files_1/images/download_google_th.png";
+          document.getElementById("giftcode-btn").src =
+            "/Files_1/images/giftcode_mb_th.png";
+        //   document.getElementById("download-apk-btn").src =
+        //     "/Files_1/images/download_apk_th.png";
+        //   // 宽屏的资源替换
+        //   document.getElementById("ios-download-btn-w").src =
+        //     "/Files_1/images/download_ios_th.png";
+        //   document.getElementById("google-download-btn-w").src =
+        //     "/Files_1/images/download_google_th.png";
+        //   document.getElementById("download-apk-btn-w").src =
+        //     "/Files_1/images/download_apk_th.png";
+          document.getElementById("giftcode-btn-w").src =
+            "/Files_1/images/giftcode_mb_th.png";
+        }
+      }
+
+      // 3. 修改原有的 fun() 函数以适配多语言
+      function fun() {
+        const currentLang = localStorage.getItem("selectedLang") || "en"; // 默认英文
+        alert(langData[currentLang].msg);
+      }
+
+      // 4. 初始化加载
+      document.addEventListener("DOMContentLoaded", function () {
+        // 从本地获取保存的语言，如果没有则默认英文
+        const savedLang = localStorage.getItem("selectedLang") || "en";
+        if (document.getElementById("currentLangDisplay")) {
+          document.getElementById("currentLangDisplay").innerHTML =
+            langData[savedLang].name;
+        }
+        if (document.getElementById("currentLangDisplay-desktop")) {
+          document.getElementById("currentLangDisplay-desktop").innerHTML =
+           // langData[savedLang].name;
+        }
+
+        // 绑定点击事件控制菜单开关
+        const btn = document.getElementById("currentLangDisplay");
+        const menu = document.getElementById("langOptions");
+        const btnDesktop = document.getElementById(
+          "currentLangDisplay-desktop"
+        );
+        const menuDesktop = document.getElementById("langOptions-desktop");
+
+        if (btn && menu) {
+          btn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            menu.classList.toggle("show-lang");
+            if (menuDesktop) menuDesktop.classList.remove("show-lang");
+          });
+        }
+
+        if (btnDesktop && menuDesktop) {
+          btnDesktop.addEventListener("click", function (e) {
+            e.stopPropagation();
+            menuDesktop.classList.toggle("show-lang");
+            if (menu) menu.classList.remove("show-lang");
+          });
+        }
+
+        // 点击页面其他地方关闭菜单
+        document.addEventListener("click", function () {
+          if (menu) menu.classList.remove("show-lang");
+          if (menuDesktop) menuDesktop.classList.remove("show-lang");
+        });
+      });
+
+      //初始设置一次语言为英文的
+      changeLanguage("en");
+
+      //下载跳转
+      function down(url) {
+        down_url = url;
+        window.location.href = down_url;
+        console.log(url);
+      }
+    </script>
+  
+
+</body></html>

@@ -1,0 +1,259 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('../images/bg_body.png') no-repeat center top;
+    background-size: cover;
+}
+body, html{
+    overflow-x: hidden;
+}
+.uk-container {
+    max-width: 1200px;
+}
+header#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+}
+.header-main {
+    height: 74px;
+    background: url('../images/bg_header.png') no-repeat center center/cover;
+    padding-top: 25px;
+    box-sizing: border-box;
+}
+.gift_btn{
+    margin-left: 83px;
+    margin-right: 72px;
+}
+ul.list-social {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 63px;
+    width: 278px;
+    padding: 0 18px;
+    background: url(../images/bg_list_social.png) no-repeat center center/contain;
+    box-sizing: border-box;
+    height: 36px;
+}
+.hf1 img{
+    transition: all .2s ease;
+}
+.hf1:hover img{
+    filter: brightness(130%);
+}
+a.logo {
+    position: relative;
+    top: -20px;
+}
+#section1{
+    padding-top: 113px;
+    padding-bottom: 50px;
+}
+#section1 .section1-inner{
+    max-width: 1009px;
+}
+ul.slick-dots {
+    padding: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+    margin: 0;
+    position: relative;
+    top: -20px;
+}
+ul.slick-dots li{
+    margin: 0 16px;
+}
+ul.slick-dots li button{
+    font-size: 0;
+    width: 17px;
+    height: 17px;
+    border-radius: 8.3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+ul.slick-dots li.slick-active button{
+    width: 70px;
+}
+.action-group {
+    margin-top: 21px;
+    position: relative;
+    z-index: 2;
+}
+.dl-android {
+    margin-top: -7px;
+}
+.download-list-icon {
+    margin-right: 8px;
+}
+.action-group-left {
+    padding: 16px 18px;
+    background: url('../images/bg_action_group.png') no-repeat center center;
+}
+img.char {
+    position: absolute;
+    right: -509px;
+    top: 0px;
+}
+.section1-top{
+    position: relative;
+    z-index: 2;
+}
+@media (max-width:  1200px){
+    .char,.header-main{
+        display: none;
+    }
+    .header-main-mobile{
+        display: flex !important;
+        height: 100px;
+        background: #491f4e;
+        align-items: center;
+    }
+    a.mb-discord {
+        margin-left: 10px;
+    }
+    a.mb-group {
+        margin-left: 12px;
+    }
+    .uk-container {
+        max-width: 750px;
+        padding: 0;
+    }
+    a.logo-mb {
+        position: absolute;
+        top: 100px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #section1 .action-group{
+        display: none;
+    }
+    #section1-mb{
+        display: block !important;
+        position: relative;
+    }
+    .action-group{
+        margin-top: -246px;
+    }
+    .action-group-left {
+        padding: 23px 19px;
+        background-size: 100% 100%;
+    }
+    #site-main {
+        padding-top: 215px;
+    }
+    .mb_giftcode {
+        position: absolute;
+        top: 113px;
+        right: 40px;
+    }
+    #section1{
+        padding-top: 10px;
+        padding-bottom: 185px;
+    }
+    #section1 .uk-container{
+        padding: 0 10px;
+    }
+    ul.slick-dots li button {
+        font-size: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 16px;
+    }
+    ul.slick-dots li.slick-active button{
+        width: 136px;
+    }
+    ul.slick-dots li{
+        margin: 0 30px;
+    }
+    ul.slick-dots{
+        top: 10px;
+    }
+}
+@media (max-width:  750px){
+    body{
+        background-image: url('../images/bg_body_mb.png');
+    }
+    a.mb-fanpage img, a.mb-account img {
+        max-width: 32vw;
+    }
+    a.mb-group img{
+        max-width: 9.467vw;
+    }
+    a.mb-discord img {
+        max-width: 9.467vw;
+    }
+    .header-main-mobile{
+            height: 13.333vw;
+    }
+    a.logo-mb{
+        top: 13.333vw;
+    }
+    #site-main {
+        padding-top: 28.667vw;
+    }
+    img.char-mb {
+        max-width: 66.4vw;
+    }
+    .mb_giftcode img {
+        max-width: 26.4vw;
+    }
+    .mb_giftcode{
+        top:  15.067vw;
+        right: 5.333vw;
+    }
+    .action-group-left {
+        padding: 3.067vw 2.533vw;
+        background-size: 100% 100%;
+    }
+    .action-group {
+        margin-top: -32.8vw;
+    }
+    .download-list-icon img {
+        max-width: 20.4vw;
+    }
+    .dl-ios img,.dl-android img {
+        max-width: 39.067vw;
+    }
+    .dl-android {
+        margin-top: -0.667vw;
+    }
+    .download-list-icon {
+        margin-right: 1.067vw;
+    }
+    .dl-apk img {
+        max-width: 25.6vw;
+    }
+    ul.slick-dots li button {
+        font-size: 0;
+        width: 4.267vw;
+        height: 4.267vw;
+        border-radius: 2.133vw;
+    }
+    ul.slick-dots li.slick-active button{
+        width: 18.133vw;
+    }
+    ul.slick-dots li{
+        margin: 0 4vw;
+    }
+    ul.slick-dots{
+        top: 1.333vw;
+    }
+    #section1 {
+        padding-top: 1.333vw;
+        padding-bottom: 24.667vw;
+    }
+    #section1 .uk-container {
+        padding: 0 1.333vw;
+    }
+    a.mb-group {
+        margin-left: 1.333vw;
+    }
+    a.mb-discord {
+        margin-left: 1.333vw;
+    }
+}
